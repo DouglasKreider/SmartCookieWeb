@@ -6,5 +6,8 @@ import com.cookiegames.smartcookie.preference.IntEnum
  * The available proxy choices.
  */
 enum class ProxyChoice(override val value: Int) : IntEnum {
-    EMYPEOPLE(0)
+    NONE(0),
+    ORBOT(1),
+    I2P(2),
+    MANUAL(3)
 }
