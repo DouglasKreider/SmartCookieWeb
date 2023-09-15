@@ -53,10 +53,6 @@
             android:singleLineTitle="false"
             android:title="@string/block_javascript"/>
         <Preference
-            android:key="proxy"
-            android:singleLineTitle="false"
-            android:title="@string/http_proxy"/>
-        <Preference
             android:key="agent"
             android:singleLineTitle="false"
             android:title="@string/agent"/>
