@@ -56,6 +56,8 @@ public final class ProxyUtils {
      * proxying for this session
      */
     public void checkForProxy(@NonNull final Activity activity) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        initializeProxy(activity);
         final ProxyChoice currentProxyChoice = userPreferences.getProxyChoice();
 
         final boolean orbotInstalled = OrbotHelper.isOrbotInstalled(activity);
@@ -74,7 +76,6 @@ public final class ProxyUtils {
             if (i2p) {
                 developerPreferences.setCheckedForI2P(true);
             }
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
             if (orbotInstalled && i2pInstalled) {
                 String[] proxyChoices = activity.getResources().getStringArray(R.array.proxy_choices_array);
@@ -90,9 +91,7 @@ public final class ProxyUtils {
                 });
                 builder.setPositiveButton(activity.getResources().getString(R.string.action_ok),
                         (dialog, which) -> {
-                            if (userPreferences.getProxyChoice() != ProxyChoice.NONE) {
-                                initializeProxy(activity);
-                            }
+                            initializeProxy(activity);
                         });
             } else {
                 DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
@@ -171,17 +170,9 @@ public final class ProxyUtils {
     }
 
     public void updateProxySettings(@NonNull Activity activity) {
-        if (userPreferences.getProxyChoice() != ProxyChoice.NONE) {
             initializeProxy(activity);
-        } else {
-            try {
-                WebkitProxy.resetProxy(BrowserApp.class.getName(), activity.getApplicationContext());
-            } catch (Exception e) {
-                Log.e(TAG, "Unable to reset proxy", e);
-            }
 
             sI2PProxyInitialized = false;
-        }
     }
 
     public void onStop() {
